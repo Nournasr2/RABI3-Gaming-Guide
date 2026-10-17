@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#101827">
+  <meta name="description" content="دليل عملاء شركة الربيع لأجهزة الألعاب: إرشادات PlayStation وتشخيص الأعطال وطلبات الصيانة.">
+  <title>RABI3 Gaming Guide | دليل الربيع</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#home" aria-label="الرئيسية">
+      <div class="brand-mark" aria-hidden="true"><span>R</span><i>3</i></div>
+      <div><strong>RABI3</strong><small>GAMING GUIDE</small></div>
+    </a>
+    <nav class="desktop-nav" aria-label="القائمة الرئيسية">
+      <a href="#guides">الإرشادات</a><a href="#diagnose">تشخيص الأعطال</a><a href="#branches">الفروع والخدمات</a>
+    </nav>
+    <button class="menu-btn" id="menuBtn" aria-label="فتح القائمة">☰</button>
+  </header>
+
+  <main>
+    <section class="hero section" id="home">
+      <div class="hero-copy">
+        <span class="eyebrow"><span class="pulse"></span> خبرة سنين بتفرق</span>
+        <h1>مشكلتك في البلايستيشن؟<br><em>ابدأ من هنا.</em></h1>
+        <p>إرشادات واضحة، خطوات تشخيص عملية، وطريق أسهل للوصول لخدمات الصيانة من شركة الربيع.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#diagnose">شخّص العطل <span>←</span></a>
+          <a class="btn btn-secondary" href="#guides">تصفّح الإرشادات</a>
+        </div>
+        <div class="trust-row"><span>● PS4</span><span>● PS5</span><span>● أذرع التحكم</span></div>
+      </div>
+      <div class="hero-art" aria-label="رسم توضيحي لجهاز ألعاب">
+        <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+        <div class="console"><div class="console-wing"></div><div class="console-core"><div class="console-light"></div></div><div class="console-base"></div></div>
+        <div class="floating-tag tag-top">RABI3 <b>CARE</b></div>
+        <div class="floating-tag tag-bottom"><span class="tag-dot"></span> دليل العميل الذكي</div>
+      </div>
+    </section>
+
+    <section class="quick-stats">
+      <div><strong>01</strong><span>افهم المشكلة</span></div><div><strong>02</strong><span>جرّب خطوات آمنة</span></div><div><strong>03</strong><span>اطلب المساعدة</span></div>
+    </section>
+
+    <section class="section" id="diagnose">
+      <div class="section-heading">
+        <div><span class="eyebrow">مساعد الأعطال</span><h2>إيه اللي بيحصل مع جهازك؟</h2><p>اختار المشكلة، وهندلّك على خطوات أولية آمنة.</p></div>
+        <span class="section-index">01 / DIAGNOSE</span>
+      </div>
+      <div class="diagnostic-layout">
+        <div class="diagnostic-options" id="diagnosticOptions">
+          <button class="problem-card active" data-problem="power"><span class="problem-icon">⏻</span><span><b>الجهاز مش بيفتح</b><small>لا توجد إضاءة أو استجابة</small></span><span class="chevron">←</span></button>
+          <button class="problem-card" data-problem="display"><span class="problem-icon">▣</span><span><b>مفيش صورة على الشاشة</b><small>الشاشة سوداء أو لا توجد إشارة</small></span><span class="chevron">←</span></button>
+          <button class="problem-card" data-problem="controller"><span class="problem-icon">⌁</span><span><b>الذراع مش بتتصل</b><small>مشكلة اتصال أو استجابة</small></span><span class="chevron">←</span></button>
+          <button class="problem-card" data-problem="heat"><span class="problem-icon">♨</span><span><b>حرارة أو صوت مروحة</b><small>سخونة أو صوت أعلى من المعتاد</small></span><span class="chevron">←</span></button>
+          <button class="problem-card" data-problem="storage"><span class="problem-icon">▤</span><span><b>مساحة التخزين ممتلئة</b><small>مش قادر تثبت لعبة أو تحديث</small></span><span class="chevron">←</span></button>
+        </div>
+        <article class="diagnostic-result" id="diagnosticResult" aria-live="polite"></article>
+      </div>
+      <p class="safety-note"><b>تنبيه سلامة:</b> افصل الجهاز عن الكهرباء قبل تحريك الكابلات. لا تفتح مزوّد الطاقة أو الجهاز من الداخل؛ الأعطال الداخلية تحتاج فنيًا مؤهلًا.</p>
+    </section>
+
+    <section class="section guides-section" id="guides">
+      <div class="section-heading">
+        <div><span class="eyebrow">مكتبة المعرفة</span><h2>إرشادات تساعدك كل يوم</h2><p>محتوى مختصر وسهل البحث، ويمكن تطويره من لوحة الإدارة.</p></div>
+        <span class="section-index">02 / GUIDES</span>
+      </div>
+      <div class="guide-toolbar"><label class="search-box"><span>⌕</span><input id="guideSearch" type="search" placeholder="ابحث عن مشكلة أو إرشاد..." aria-label="البحث في الإرشادات"></label><div class="filter-pills" id="guideFilters"><button class="filter-pill active" data-category="all">الكل</button><button class="filter-pill" data-category="console">الأجهزة</button><button class="filter-pill" data-category="controller">الأذرع</button><button class="filter-pill" data-category="games">الألعاب</button></div></div>
+      <div class="guide-grid" id="guideGrid"></div>
+      <div class="empty-state hidden" id="guideEmpty">مفيش نتائج مطابقة. جرّب كلمة تانية.</div>
+    </section>
+
+    <section class="service-banner section">
+      <div class="banner-icon">✦</div><div><span class="eyebrow">محتاج مساعدة من متخصص؟</span><h2>خلي الخطوة الجاية مع فريق الربيع.</h2><p>جهّز تفاصيل جهازك والعطل، واختار الفرع المناسب لطلب الصيانة.</p></div><a href="#request" class="btn btn-primary">طلب صيانة <span>←</span></a>
+    </section>
+
+    <section class="section branch-section" id="branches">
+      <div class="section-heading"><div><span class="eyebrow">قريبين منك</span><h2>فروع وخدمات الربيع</h2><p>اختار الفرع الذي تريد الاستفسار عنه. أضف العناوين ومواعيد العمل الرسمية قبل النشر.</p></div><span class="section-index">03 / BRANCHES</span></div>
+      <div class="branch-grid">
+        <article class="branch-card"><div class="branch-number">01</div><span class="branch-label">ALEXANDRIA</span><h3>فرع سموحة</h3><p>بيع وشراء واستبدال وصيانة أجهزة الألعاب والأذرع.</p><a href="#request" class="text-link" data-branch-link="سموحة">اسأل عن الخدمة <span>←</span></a></article>
+        <article class="branch-card featured"><div class="branch-number">02</div><span class="branch-label">ALEXANDRIA</span><h3>فرع سان ستيفانو</h3><p>خدمات أجهزة PlayStation وإرشادات ما بعد الشراء.</p><a href="#request" class="text-link" data-branch-link="سان ستيفانو">اسأل عن الخدمة <span>←</span></a></article>
+        <article class="branch-card"><div class="branch-number">03</div><span class="branch-label">ALEXANDRIA</span><h3>فرع ميامي</h3><p>استفسارات الأجهزة والأذرع وطلبات الصيانة.</p><a href="#request" class="text-link" data-branch-link="ميامي">اسأل عن الخدمة <span>←</span></a></article>
+      </div>
+    </section>
+
+    <section class="section request-section" id="request">
+      <div class="request-intro"><span class="eyebrow">طلب صيانة</span><h2>احكيلنا عن المشكلة.</h2><p>املأ البيانات لتجهيز ملخص للطلب. في هذه النسخة التجريبية، الطلب لا يُرسل إلى الشركة تلقائيًا.</p><div class="request-promise"><span>✓</span> تفاصيل منظمة للفني<br><span>✓</span> خطوات التشخيص التي جرّبتها</div></div>
+      <form class="request-form" id="serviceForm">
+        <div class="form-row"><label>الاسم<input name="name" required maxlength="80" placeholder="اسم العميل"></label><label>رقم الهاتف<input name="phone" required inputmode="tel" maxlength="25" placeholder="رقم للتواصل"></label></div>
+        <div class="form-row"><label>الجهاز<select name="device" required><option value="">اختار الجهاز</option><option>PS5</option><option>PS4 Pro</option><option>PS4 Slim</option><option>PS4</option><option>ذراع DualSense</option><option>ذراع DualShock 4</option><option>أخرى</option></select></label><label>الفرع المفضل<select name="branch" required><option value="">اختار الفرع</option><option>سموحة</option><option>سان ستيفانو</option><option>ميامي</option></select></label></div>
+        <label>وصف المشكلة<textarea name="issue" required maxlength="1000" rows="4" placeholder="إيه اللي بيحصل؟ وبدأت المشكلة إمتى؟"></textarea></label>
+        <label class="consent"><input type="checkbox" required> أوافق على استخدام البيانات دي لتجهيز طلب الصيانة في هذه النسخة التجريبية.</label>
+        <button class="btn btn-primary form-submit" type="submit">تجهيز ملخص الطلب <span>←</span></button>
+        <p class="form-message" id="formMessage" role="status"></p>
+      </form>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-brand"><div class="brand-mark"><span>R</span><i>3</i></div><div><strong>شركة الربيع لأجهزة الألعاب</strong><small>خبرة سنين بتفرق</small></div></div>
+    <p>دليل إرشادي للعملاء. المعلومات لا تغني عن فحص فني عند وجود عطل داخلي.</p>
+    <span class="copyright">RABI3 GAMING GUIDE · MVP</span>
+  </footer>
+
+  <dialog id="guideDialog" class="guide-dialog"><button class="dialog-close" id="dialogClose" aria-label="إغلاق">×</button><div id="guideDialogContent"></div></dialog>
+  <script src="app.js"></script>
+</body>
+</html>
