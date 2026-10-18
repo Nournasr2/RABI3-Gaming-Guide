@@ -1,4 +1,5 @@
-name: Build RABI3 APK
+
+name: Build RABI3 Android APK
 
 on:
   workflow_dispatch:
@@ -14,66 +15,55 @@ jobs:
     name: Build Android APK
     runs-on: ubuntu-latest
 
-    env:
-      ANDROID_HOME: /usr/local/lib/android/sdk
-      ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
-      GRADLE_VERSION: "8.9"
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Java 17
+      - name: Set up Java
         uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: "17"
+          cache: gradle
 
-      - name: Accept Android SDK licenses
-        shell: bash
-        run: |
-          set -e
-          SDKMANAGER="$(find "$ANDROID_HOME/cmdline-tools" \
-            -type f -name sdkmanager | sort -V | tail -n 1)"
-
-          if [ -z "$SDKMANAGER" ]; then
-            echo "ERROR: Android SDK sdkmanager was not found."
-            exit 1
-          fi
-
-          yes | "$SDKMANAGER" --licenses || true
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
 
       - name: Install Android SDK packages
-        shell: bash
         run: |
-          set -e
-          SDKMANAGER="$(find "$ANDROID_HOME/cmdline-tools" \
-            -type f -name sdkmanager | sort -V | tail -n 1)"
+          sdkmanager "platforms;android-35" "build-tools;35.0.0"
+          yes | sdkmanager --licenses || true
 
-          "$SDKMANAGER" --install \
-            "platform-tools" \
-            "platforms;android-35" \
-            "build-tools;35.0.0"
-
-      - name: Set up Gradle
-        uses: gradle/actions/setup-gradle@v4
-        with:
-          gradle-version: "8.9"
-
-      - name: Verify project files
-        shell: bash
+      - name: Verify application files
         run: |
-          test -f settings.gradle || test -f settings.gradle.kts
-          test -f app/build.gradle || test -f app/build.gradle.kts
-          echo "Project files found successfully."
+          test -f app/src/main/AndroidManifest.xml
+          test -f app/src/main/java/com/rabi3/gamingguide/MainActivity.java
+          test -f app/src/main/assets/www/index.html
+          test -f app/src/main/assets/www/app.js
+          test -f app/src/main/assets/www/styles.css
 
       - name: Build debug APK
-        run: gradle --no-daemon assembleDebug
+        run: |
+          chmod +x gradlew 2>/dev/null || true
+          if [ -f gradlew ]; then
+            ./gradlew --no-daemon clean assembleDebug
+          else
+            gradle --no-daemon clean assembleDebug
+          fi
+
+      - name: Verify APK contents
+        run: |
+          APK="app/build/outputs/apk/debug/app-debug.apk"
+          test -s "$APK"
+          unzip -l "$APK"
+          unzip -p "$APK" assets/www/index.html | head -c 500
+          echo
+          ls -lh "$APK"
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: RABI3-Gaming-Guide-APK
-          path: app/build/outputs/apk/debug/*.apk
+          path: app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
           retention-days: 14
