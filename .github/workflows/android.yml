@@ -10,10 +10,15 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: rabi3-android-build-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     name: Build Android APK
     runs-on: ubuntu-latest
+    timeout-minutes: 30
 
     steps:
       - name: Checkout repository
@@ -28,22 +33,62 @@ jobs:
 
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
+        with:
+          accept-android-sdk-licenses: 'true'
+          log-accepted-android-sdk-licenses: 'false'
+          packages: 'platform-tools'
 
-      - name: Install Android SDK packages
+      - name: Install required Android SDK packages
         run: |
-          sdkmanager --install "platform-tools" "platforms;android-35" "build-tools;35.0.0"
+          sdkmanager --install \
+            "platform-tools" \
+            "platforms;android-35" \
+            "build-tools;35.0.0"
 
-      - name: Accept Android SDK licenses
-        run: yes | sdkmanager --licenses
+      - name: Verify required project files
+        run: |
+          test -f gradlew || {
+            echo "ERROR: gradlew not found in repository root."
+            exit 1
+          }
+
+          test -f app/build.gradle || \
+          test -f app/build.gradle.kts || {
+            echo "ERROR: app Gradle build file not found."
+            exit 1
+          }
+
+          test -f app/src/main/assets/www/index.html || {
+            echo "ERROR: Web app index.html not found."
+            exit 1
+          }
+
+          test -f app/src/main/assets/www/assets/rabi3-logo.png || {
+            echo "ERROR: Rabi3 logo not found at expected path."
+            exit 1
+          }
 
       - name: Build Debug APK
         run: |
           chmod +x gradlew
-          ./gradlew --no-daemon assembleDebug
+          ./gradlew --no-daemon --stacktrace assembleDebug
 
-      - name: Upload APK
+      - name: Verify APK was generated
+        run: |
+          APK="app/build/outputs/apk/debug/app-debug.apk"
+
+          if [ ! -s "$APK" ]; then
+            echo "ERROR: APK missing or empty."
+            exit 1
+          fi
+
+          echo "APK successfully generated:"
+          ls -lh "$APK"
+
+      - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
           name: RABI3-Gaming-Guide-APK
           path: app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
+          retention-days: 14
